@@ -366,13 +366,16 @@
 			$imeList.empty();
 
 			$.each( language.inputmethods, function ( index, inputmethod ) {
-				var name = $.ime.sources[inputmethod].name,
-					$imeItem = $( '<a>' ).attr( 'href', '#' ).text( name ),
-					$inputMethod = $( '<li data-ime-inputmethod=' + inputmethod + '>' );
+				var $thisIME = $.ime.sources[inputmethod];
+				if ( $thisIME.status !== 'beta' ) {
+					var name = $thisIME.name,
+						$imeItem = $( '<a>' ).attr( 'href', '#' ).text( name ),
+						$inputMethod = $( '<li data-ime-inputmethod=' + inputmethod + '>' );
 
-				$inputMethod.append( '<span class="ime-im-check">' ).append( $imeItem );
-				$inputMethod.addClass( 'ime-im' );
-				$imeList.append( $inputMethod );
+					$inputMethod.append( '<span class="ime-im-check">' ).append( $imeItem );
+					$inputMethod.addClass( 'ime-im' );
+					$imeList.append( $inputMethod );
+				}
 			} );
 		},
 
